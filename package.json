@@ -2,7 +2,6 @@
   "name": "facerecognitionbrain",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "dependencies": {
     "clarifai": "^2.9.1",
     "node-fetch": "^3.3.2",
