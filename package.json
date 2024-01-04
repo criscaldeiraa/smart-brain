@@ -18,8 +18,9 @@
     "pg": "^8.11.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
     "react-parallax-tilt": "^1.7.164",
+    "react-scripts": "5.0.1",
+    "tachyons": "^4.12.0",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -41,8 +42,8 @@
     ]
   },
   "devDependencies": {
-    "@types/bcrypt-nodejs": "^0.0.31",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/bcrypt-nodejs": "^0.0.31",
     "react-error-overlay": "6.0.9"
   }
 }
