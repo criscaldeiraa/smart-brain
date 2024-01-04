@@ -45,6 +45,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@types/bcrypt-nodejs": "^0.0.31",
-    "react-error-overlay": "6.0.9"
+    "react-error-overlay": "6.0.9",
+    "webpack": "^5.89.0"
   }
 }
