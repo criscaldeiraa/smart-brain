@@ -8,11 +8,11 @@ module.exports = function override(config, env) {
         stream: require.resolve("stream-browserify"),
     };
     config.plugins.push(
-        new webpack.provideplugin({
+        new webpack.ProvidePlugin({
             process: "process/browser",
             buffer: ["buffer", "buffer"],
         }),
-        new webpack.normalmodulereplacementplugin(/node:/, (resource) => {
+        new webpack.NormalModuleReplacementPlugin(/node:/, (resource) => {
             const mod = resource.request.replace(/^node:/, "");
             switch (mod) {
                 case "buffer":
