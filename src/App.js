@@ -87,7 +87,10 @@ class App extends Component {
 
     fetch("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
       method: 'post',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
       body: JSON.stringify({
         input: this.state.input
       }),
@@ -103,7 +106,10 @@ class App extends Component {
           // Proceed with face detection and image update
           fetch("https://smart-brain-back-end-vmuu.onrender.com/image", {
             method: 'put',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+              'Content-Type': 'application/json',
+              'Access-Control-Allow-Origin': '*'
+            },
             body: JSON.stringify({
               id: this.state.user.id
             })
