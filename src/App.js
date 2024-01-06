@@ -89,7 +89,6 @@ class App extends Component {
       method: 'post',
       headers: { 
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({
         input: this.state.input
