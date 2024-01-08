@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 // import Particles from 'react-particles-js';
 import ParticlesBg from 'particles-bg'
 // import Clarifai from 'clarifai';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import axios from 'axios';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Navigation from './components/Navigation/Navigation';
