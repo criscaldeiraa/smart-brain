@@ -86,6 +86,7 @@ class App extends Component {
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
     fetch("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
+      method: 'post',
       headers: { 
         'Content-Type': 'application/json',
       },
@@ -103,6 +104,7 @@ class App extends Component {
         } else {
           // Proceed with face detection and image update
           fetch("https://smart-brain-back-end-vmuu.onrender.com/image", {
+            method: 'put',
             headers: { 
               'Content-Type': 'application/json',
             },
