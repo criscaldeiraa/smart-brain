@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 // import Particles from 'react-particles-js';
 import ParticlesBg from 'particles-bg'
 // import Clarifai from 'clarifai';
-// import fetch from 'node-fetch';
-import axios from 'axios';
+import fetch from 'node-fetch';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Navigation from './components/Navigation/Navigation';
 import Signin from './components/Signin/Signin';
@@ -12,6 +11,8 @@ import Logo from './components/Logo/Logo';
 import ImageLinkForm from './components/ImageLinkForm/ImageLinkForm';
 import Rank from './components/Rank/Rank';
 import './App.css';
+
+window.process = {}
 
 const initialState = {
     input: '',
@@ -25,8 +26,7 @@ const initialState = {
       email: '',
       entries: 0,
       joined: ''
-}
-
+    }
 }
 
 class App extends Component {
@@ -85,8 +85,7 @@ class App extends Component {
 
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-
-    axios.post("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
+    fetch("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
       headers: { 
         'Content-Type': 'application/json',
       },
@@ -103,7 +102,7 @@ class App extends Component {
           // You may want to update the state or UI accordingly
         } else {
           // Proceed with face detection and image update
-          axios.put("https://smart-brain-back-end-vmuu.onrender.com/image", {
+          fetch("https://smart-brain-back-end-vmuu.onrender.com/image", {
             headers: { 
               'Content-Type': 'application/json',
             },
