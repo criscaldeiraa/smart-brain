@@ -88,6 +88,8 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input });
     axios.post("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
       headers: { 
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': '*',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
