@@ -94,8 +94,8 @@ class App extends Component {
         body: JSON.stringify({ imageUrl }),
       });
 
-      const data = await response.json();
-      calculateFaceLocation(data);
+      const data = await response.json(calculateFaceLocation(data));
+      
     } catch (error) {
       console.error('Error:', error);
     }
