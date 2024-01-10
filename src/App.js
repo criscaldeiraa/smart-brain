@@ -56,7 +56,8 @@ class App extends Component {
     //   const image = document.getElementById('inputimage');
     //   const width = Number(image.width);
     //   const height = Number(image.height);
-    
+    const regions = response.outputs[0].data.regions;
+    const boundingBox = region.region_info.bounding_box;
       return {
         leftCol: boundingBox.left_col * width,
         topRow: boundingBox.top_row * height,
