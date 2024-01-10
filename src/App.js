@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
-// import Particles from 'react-particles-js';
 import ParticlesBg from 'particles-bg'
 // import Clarifai from 'clarifai';
-// import fetch from 'node-fetch';
-// import axios from 'axios';
+import fetch from 'node-fetch';
 import xhr from 'xhr';
 import FaceRecognition from './components/FaceRecognition/FaceRecognition';
 import Navigation from './components/Navigation/Navigation';
@@ -85,49 +83,65 @@ class App extends Component {
     this.setState({ input: event.target.value });
   }
 
-  onButtonSubmit = () => {
+  onButtonSubmit = async () => {
     this.setState({ imageUrl: this.state.input });
-    xhr.post("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
-      headers: { 
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': '*',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        input: this.state.input
-      }),
-    })
-      .then(response => response.json())
-      .then(response => {
-        // Check if the response contains an error
-        if (response.error) {
-          console.error('Clarifai API Error:', response.error);
-          // Handle the error case, e.g., show a message to the user
-          // You may want to update the state or UI accordingly
-        } else {
-          // Proceed with face detection and image update
-          xhr.put("https://smart-brain-back-end-vmuu.onrender.com/image", {
-            headers: { 
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              id: this.state.user.id
-            })
-          })
-            .then(response => response.json())
-            .then(count => {
-              this.setState(Object.assign(this.state.user, { entries: count }));
-            })
-            .catch(console.log);
-
-          this.displayFaceBox(this.calculateFaceLocation(response));
-        }
-      })
-      .catch(err => {
-        console.error('Fetch Error:', err);
-        // Handle fetch error, e.g., show a message to the user
-        // You may want to update the state or UI accordingly
+    try {
+      const response = await fetch('http://localhost:3001/api/face-detection', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ imageUrl }),
       });
+
+      const data = await response.json();
+      setFaceData(data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+
+    // xhr.post("https://smart-brain-back-end-vmuu.onrender.com/imageurl", {
+    //   headers: { 
+    //     'Access-Control-Allow-Origin': '*',
+    //     'Access-Control-Allow-Headers': '*',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify({
+    //     input: this.state.input
+    //   }),
+    // })
+    //   .then(response => response.json())
+    //   .then(response => {
+    //     // Check if the response contains an error
+    //     if (response.error) {
+    //       console.error('Clarifai API Error:', response.error);
+    //       // Handle the error case, e.g., show a message to the user
+    //       // You may want to update the state or UI accordingly
+    //     } else {
+    //       // Proceed with face detection and image update
+    //       xhr.put("https://smart-brain-back-end-vmuu.onrender.com/image", {
+    //         headers: { 
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify({
+    //           id: this.state.user.id
+    //         })
+    //       })
+    //         .then(response => response.json())
+    //         .then(count => {
+    //           this.setState(Object.assign(this.state.user, { entries: count }));
+    //         })
+    //         .catch(console.log);
+
+    //       this.displayFaceBox(this.calculateFaceLocation(response));
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.error('Fetch Error:', err);
+    //     // Handle fetch error, e.g., show a message to the user
+    //     // You may want to update the state or UI accordingly
+    //   });
   };
 
   onRouteChange = (route) => {
