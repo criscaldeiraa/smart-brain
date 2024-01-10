@@ -84,7 +84,7 @@ class App extends Component {
   }
 
   onButtonSubmit = async () => {
-    this.setState({ imageUrl: this.state.input });
+    const [imageUrl, setImageUrl] = useState('');
     try {
       const response = await fetch('http://localhost:3001/api/face-detection', {
         method: 'POST',
@@ -95,7 +95,7 @@ class App extends Component {
       });
 
       const data = await response.json();
-      setFaceData(data);
+      calculateFaceLocation(data);
     } catch (error) {
       console.error('Error:', error);
     }
