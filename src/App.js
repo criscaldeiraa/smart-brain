@@ -95,7 +95,7 @@ class App extends Component {
       });
 
       const data = await response.json(calculateFaceLocation(data));
-      
+      console.log(calculateFaceLocation(data));
     } catch (error) {
       console.error('Error:', error);
     }
