@@ -84,9 +84,9 @@ class App extends Component {
   }
 
   onButtonSubmit = async () => {
-    const [imageUrl, setImageUrl] = useState('');
+    this.setState({ imageUrl: this.state.input });
     try {
-      const response = await fetch('http://localhost:3001/api/face-detection', {
+      const response = await fetch('https://smart-brain-gq6l.onrender.com/imageurl', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
