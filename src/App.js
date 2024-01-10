@@ -56,6 +56,35 @@ class App extends Component {
   }
 
   onButtonSubmit = async () => {
+    const calculateFaceLocation = (data) => {
+      // Check if the response and its nested properties exist
+      if (data && data.outputs && data.outputs[0] && data.outputs[0].data &&
+        data.outputs[0].data.regions && data.outputs[0].data.regions[0] &&
+        data.outputs[0].data.regions[0].region_info &&
+        data.outputs[0].data.regions[0].region_info.bounding_box) {
+  
+        const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
+        const image = document.getElementById('inputimage');
+        const width = Number(image.width);
+        const height = Number(image.height);
+  
+        return {
+          leftCol: clarifaiFace.left_col * width,
+          topRow: clarifaiFace.top_row * height,
+          rightCol: width - (clarifaiFace.right_col * width),
+          bottomRow: height - (clarifaiFace.bottom_row * height)
+        };
+      } else {
+        console.error('Invalid response structure from Clarifai API:', data);
+        // Return a default bounding box or handle the error as needed
+        return {
+          leftCol: 0,
+          topRow: 0,
+          rightCol: 0,
+          bottomRow: 0
+        };
+      }
+    }
     const imageUrl = this.setState({ imageUrl: this.state.input });
     try {
       const response = await fetch('https://smart-brain-gq6l.onrender.com/imageurl', {
@@ -67,35 +96,7 @@ class App extends Component {
       });
 
       const data = await response.json(calculateFaceLocation(data));
-      calculateFaceLocation = (data) => {
-        // Check if the response and its nested properties exist
-        if (data && data.outputs && data.outputs[0] && data.outputs[0].data &&
-          data.outputs[0].data.regions && data.outputs[0].data.regions[0] &&
-          data.outputs[0].data.regions[0].region_info &&
-          data.outputs[0].data.regions[0].region_info.bounding_box) {
-    
-          const clarifaiFace = data.outputs[0].data.regions[0].region_info.bounding_box;
-          const image = document.getElementById('inputimage');
-          const width = Number(image.width);
-          const height = Number(image.height);
-    
-          return {
-            leftCol: clarifaiFace.left_col * width,
-            topRow: clarifaiFace.top_row * height,
-            rightCol: width - (clarifaiFace.right_col * width),
-            bottomRow: height - (clarifaiFace.bottom_row * height)
-          };
-        } else {
-          console.error('Invalid response structure from Clarifai API:', data);
-          // Return a default bounding box or handle the error as needed
-          return {
-            leftCol: 0,
-            topRow: 0,
-            rightCol: 0,
-            bottomRow: 0
-          };
-        }
-      }
+      
     } catch (error) {
       console.error('Error:', error);
     }
