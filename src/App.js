@@ -113,21 +113,34 @@ class App extends Component {
 
   onButtonSubmit = async () => {
     const imageUrl = this.setState({ imageUrl: this.state.input });
-    try {
       const response = await fetch('https://smart-brain-gq6l.onrender.com/imageurl', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ imageUrl }),
-      });
-
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result) {
+          this.dispFaceBox(result)
+          fetch('https://smart-brain-gq6l.onrender.com/image', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.user.id
+            })
+          })
+            .then(res => res.json())
+            .then(count => {
+              this.setState(Object.assign(this.state.user, { entries: count}));
+            })
+            .catch(console.log)
+        }
       this.displayFaceBox(this.calculateFaceLocation(response))
-      
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
+    }) 
+    .catch(error => console.log('error', error))  // promise if something fails
+  }
 
   onRouteChange = (route) => {
     if (route === 'signout') {
