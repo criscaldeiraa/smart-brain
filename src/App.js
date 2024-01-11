@@ -111,16 +111,22 @@ class App extends Component {
     this.setState({ input: event.target.value });
   }
 
-  onButtonSubmit = async () => {
-    const imageUrl = this.setState({ imageUrl: this.state.input });
-      const response = await fetch('https://smart-brain-gq6l.onrender.com/imageurl', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ imageUrl }),
+  onButtonSubmit = () => {
+    this.setState({ imageUrl: this.state.input }, 
+      () => console.log("SETTING URL:", this.state.imageUrl));
+    
+      // fetch('http://localhost:3000/imageURL', {
+        fetch('https://smart-brain-gq6l.onrender.com/imageurl', {
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            input: this.state.input
+        })
       })
+      .then(response => response.json())
+      //.then(result => console.log(result)) // originally provided
       .then(result => {
+        // console.log("onIMGSubmit API call:", result);
         if (result) {
           this.displayFaceBox(result)
           fetch('https://smart-brain-gq6l.onrender.com/image', {
@@ -130,14 +136,15 @@ class App extends Component {
                 id: this.state.user.id
             })
           })
+            .then(res => res.json())
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}));
             })
             .catch(console.log)
         }
-      this.displayFaceBox(this.calculateFaceLocation(result))
-    }) 
-    .catch(error => console.log('error', error))  // promise if something fails
+        this.displayFaceBox(this.calculateFaceLocation(result))
+      })
+      .catch(error => console.log('error', error));  // promise if something fails
   }
 
   onRouteChange = (route) => {
