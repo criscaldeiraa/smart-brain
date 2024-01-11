@@ -3,12 +3,12 @@ import './FaceRecognition.css';
 
 const FaceRecognition = ({ imageUrl, box }) => {
   //console.log({imgURL})
-  let img2show;  // https://reactjs.org/docs/conditional-rendering.html
-  if (imgURL !== '') {
-      //<img id="intputIMG" src={imgURL} alt="User Provided For Checking Faces" width='42%' height='auto' />
-      img2show = <img id="intputIMG" src={imgURL} alt="User Provided For Checking Faces" width='500px' height='auto' />;
+  let image2;  // https://reactjs.org/docs/conditional-rendering.html
+  if (imageUrl !== '') {
+      //<img id="intputIMG" src={imageUrl} alt="User Provided For Checking Faces" width='42%' height='auto' />
+      image2 = <img id="inputimage" src={imageUrl} alt="User Provided For Checking Faces" width='500px' height='auto' />;
   } else {
-      img2show = <img id="intputIMG" src={imgURL} alt="" width='500px' height='auto' />;
+      image2 = <img id="inputimage" src={imageUrl} alt="" width='500px' height='auto' />;
   }
 
   return (
