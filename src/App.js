@@ -122,7 +122,7 @@ class App extends Component {
       })
       .then(result => {
         if (result) {
-          this.dispFaceBox(result)
+          this.displayFaceBox(result)
           fetch('https://smart-brain-gq6l.onrender.com/image', {
             method: 'put',
             headers: {'Content-Type': 'application/json'},
