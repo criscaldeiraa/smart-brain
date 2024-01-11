@@ -120,7 +120,6 @@ class App extends Component {
         },
         body: JSON.stringify({ imageUrl }),
       })
-      .then(response => response.json())
       .then(result => {
         if (result) {
           this.dispFaceBox(result)
