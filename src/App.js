@@ -112,7 +112,7 @@ class App extends Component {
   }
 
   onButtonSubmit = async () => {
-    this.setState({ imageUrl: this.state.input });
+    const imageUrl = this.setState({ imageUrl: this.state.input });
     try {
       const response = await fetch('https://smart-brain-gq6l.onrender.com/imageurl', {
         method: 'POST',
