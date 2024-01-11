@@ -56,14 +56,41 @@ class App extends Component {
     //   const image = document.getElementById('inputimage');
     //   const width = Number(image.width);
     //   const height = Number(image.height);
-    const regions = response.outputs[0].data.regions;
-    const boundingBox = region.region_info.bounding_box;
-      return {
-        leftCol: boundingBox.left_col * width,
-        topRow: boundingBox.top_row * height,
-        rightCol: width - (boundingBox.right_col * width),
-        bottomRow: height - (boundingBox.bottom_row * height)
-      };
+    
+    const clarifaiFaces = data;
+    const image = document.getElementById('inputimage');
+    const width = Number(image.width);
+    const height = Number(image.height);
+    //console.log(width, height);
+
+    let box = [];
+    let temp = null;
+    for(let idx = 0; idx < clarifaiFaces.length; idx++) {
+      temp = clarifaiFaces[idx].region_info.bounding_box;
+      //console.log("temp data:", temp)
+      box.push({
+        leftCol: temp.left_col * width,
+        topRow: temp.top_row * height,
+        rightCol: width - (temp.right_col * width),
+        bottomRow: height - (temp.bottom_row * height)
+      });
+    }
+
+    //console.log(boxes);
+    return box;
+
+
+    // ---
+    // const regions = response.outputs[0].data.regions;
+    // const boundingBox = region.region_info.bounding_box;
+    //   return {
+    //     leftCol: boundingBox.left_col * width,
+    //     topRow: boundingBox.top_row * height,
+    //     rightCol: width - (boundingBox.right_col * width),
+    //     bottomRow: height - (boundingBox.bottom_row * height)
+    //   };
+      //----
+    
     // } else {
     //   console.error('Invalid response structure from Clarifai API:', data);
     //   // Return a default bounding box or handle the error as needed
