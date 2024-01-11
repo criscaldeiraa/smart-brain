@@ -130,13 +130,12 @@ class App extends Component {
                 id: this.state.user.id
             })
           })
-            .then(res => res.json())
             .then(count => {
               this.setState(Object.assign(this.state.user, { entries: count}));
             })
             .catch(console.log)
         }
-      this.displayFaceBox(this.calculateFaceLocation(response))
+      this.displayFaceBox(this.calculateFaceLocation(result))
     }) 
     .catch(error => console.log('error', error))  // promise if something fails
   }
